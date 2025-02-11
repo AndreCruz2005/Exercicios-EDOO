@@ -200,7 +200,7 @@ int main()
             }
         }
 
-        cout << "Traversals: " << trips << endl;
+        cout << trips << endl;
     }
 
     return 0;

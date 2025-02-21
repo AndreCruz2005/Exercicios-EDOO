@@ -1,5 +1,4 @@
 #include <cstddef>
-#include <stdexcept>
 #include <iostream>
 #include <string>
 
@@ -22,14 +21,6 @@ private:
     }
 
     bool isFull() { return currentSize == maxSize; }
-
-    void isOutOfBounds(size_t idx)
-    {
-        if (idx > currentSize)
-        {
-            throw runtime_error("Index out of bounds!");
-        }
-    }
 
 protected:
     T *arr;
@@ -58,7 +49,6 @@ public:
 
     void push(T item, size_t idx)
     {
-        isOutOfBounds(idx);
 
         if (isFull())
         {
@@ -75,7 +65,6 @@ public:
 
     T remove(size_t idx)
     {
-        isOutOfBounds(idx);
         T item = arr[idx];
         for (size_t i = idx; i < currentSize - 1; i++)
         {
@@ -87,7 +76,6 @@ public:
 
     T &operator[](size_t idx)
     {
-        isOutOfBounds(idx);
         return arr[idx];
     }
 

@@ -13,7 +13,7 @@ private:
     {
         maxSize *= 2;
         T *temp = new T[maxSize];
-        for (size_t i = 0; i < currentSize; i++)
+        for (int i = 0; i < currentSize; i++)
         {
             temp[i] = arr[i];
         }
@@ -98,24 +98,24 @@ public:
 };
 
 // Last in, first out
-class Ferry : public DynamicArray<size_t>
+class Ferry : public DynamicArray<int>
 {
 private:
-    size_t centimeters;         // Length of the ferry in centimeters
-    size_t carsTotalOccupation; // Total length of cars in the ferry
-    bool side;                  // 0 = left, 1 = right
+    int centimeters;         // Length of the ferry in centimeters
+    int carsTotalOccupation; // Total length of cars in the ferry
+    bool side;               // 0 = left, 1 = right
 
 public:
-    Ferry(size_t size, size_t l) : DynamicArray<size_t>(size), centimeters(l * 100), carsTotalOccupation(0), side(0) {}
+    Ferry(int size, int l) : DynamicArray<int>(size), centimeters(l * 100), carsTotalOccupation(0), side(0) {}
 
-    void addCar(size_t car)
+    void addCar(int car)
     {
         carsTotalOccupation += car;
         this->push(car, this->currentSize);
     }
-    size_t getCar()
+    int getCar()
     {
-        size_t car = this->remove(this->currentSize - 1);
+        int car = this->remove(this->currentSize - 1);
         carsTotalOccupation -= car;
         return car;
     }
@@ -129,18 +129,18 @@ public:
         return side;
     }
 
-    bool hasSpace(size_t sizeOfNewCar) { return centimeters - carsTotalOccupation >= sizeOfNewCar; }
+    bool hasSpace(int sizeOfNewCar) { return centimeters - carsTotalOccupation >= sizeOfNewCar; }
 };
 
 // First in, first out
-class Shore : public DynamicArray<size_t>
+class Shore : public DynamicArray<int>
 {
 public:
-    void addCar(size_t car)
+    void addCar(int car)
     {
         this->push(car, this->currentSize);
     }
-    size_t getCar()
+    int getCar()
     {
         return this->remove(0);
     }
@@ -149,22 +149,22 @@ public:
 int main()
 {
 
-    size_t cases;
+    int cases;
     cin >> cases;
 
-    for (size_t c = 0; c < cases; c++)
+    for (auto c = 0; c < cases; c++)
     {
-        size_t trips = 0;
-        size_t l, m;
+        int trips = 0;
+        int l, m;
         cin >> l >> m;
 
         Ferry Boat(1, l);
         Shore LeftShore;
         Shore RightShore;
 
-        for (size_t car = 0; car < m; car++)
+        for (int car = 0; car < m; car++)
         {
-            size_t carLength;
+            int carLength;
             string side;
 
             cin >> carLength >> side;

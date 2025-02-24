@@ -157,14 +157,8 @@ int main()
 
             cin >> carLength >> side;
 
-            if (side == "left")
-            {
-                LeftShore.addCar(carLength);
-            }
-            else
-            {
-                RightShore.addCar(carLength);
-            }
+            Shore &shore = (side == "left") ? LeftShore : RightShore;
+            shore.addCar(carLength);
         }
 
         while (!RightShore.isEmpty() || !LeftShore.isEmpty())

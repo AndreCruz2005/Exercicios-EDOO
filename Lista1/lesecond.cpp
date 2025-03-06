@@ -25,21 +25,19 @@ public:
 
     ~LinkedStack()
     {
-        Clear();
+        while (head)
+        {
+            Node *temp = head;
+            head = head->next;
+            delete temp;
+        }
     }
 
     void Add(T v)
     {
         Node *newNode = new Node(v);
-        if (!head)
-        {
-            head = newNode;
-        }
-        else
-        {
-            newNode->next = head;
-            head = newNode;
-        }
+        newNode->next = head;
+        head = newNode;
 
         size++;
     }
@@ -62,43 +60,33 @@ public:
     {
         return size;
     }
-
-    void Clear()
-    {
-        while (size)
-        {
-            Pop();
-        }
-    }
 };
 
 int main()
 {
     unsigned int cases;
     cin >> cases;
-    cin.ignore();
 
     for (auto c = 0; c < cases; c++)
     {
         LinkedStack<char> S;
         bool valid = true;
         string input;
-        getline(cin, input);
+        cin >> input;
 
-        for (auto ch : input)
+        for (const auto &ch : input)
         {
             if (ch == '[' || ch == '(')
             {
                 S.Add(ch);
-                continue;
             }
-
-            char top = S.Pop();
-            bool ok = (ch == ')' && top == '(') || (ch == ']' && top == '[');
-            if (!ok)
+            else
             {
-                valid = false;
-                break;
+                char top = S.Pop();
+                valid = (ch == ')' && top == '(') || (ch == ']' && top == '[');
+
+                if (!valid)
+                    break;
             }
         }
         cout << (valid && !S.Length() ? "Yes" : "No") << endl;
